@@ -1,0 +1,91 @@
+body {
+    background-color: #2c2c2c;
+}
+
+button {
+    /* width: ; */
+    min-width: 100px;
+    /* height: 45px;
+    padding: 8px; */
+    border-radius: 5px;
+    border: 2.5px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.2s ease-in-out 0ms;
+    user-select: none;
+    font-size: 30px;
+    font-family: 'Poppins', sans-serif;
+}
+
+button:hover {
+    background-color: #F2F2F2;
+    box-shadow: 0px 0px 20px -18px;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.edge{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+#board {
+    position: relative;
+    margin: 20px;
+    width: 485px;
+    border: 5px solid rgb(155, 101, 8);
+    border-radius: 5px;
+    background-color: rgb(249, 182, 93);
+}
+.game-status{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    margin: 20px;
+    width: 300px;
+    border: 5px solid rgb(155, 101, 8);
+    border-radius: 5px;
+    background-color: rgb(249, 182, 93);
+    /* width: 100%; */
+}
+.game-status span{
+    text-align: center;
+    font-size: 30px;
+    /* margin-top: 75%;
+    width: 100%; */
+}
+
+.container {
+    
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0px;
+    position: relative;
+}
+
+.container img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    transition: transform 1s ease-in-out;
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+.red-border {
+    border: 2px solid red; /* 红色外框 */
+    width: 49px;
+    height: 48px;
+}

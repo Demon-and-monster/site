@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人數據</title>
+    <link rel="stylesheet" href="userprofile.css">
+    <link rel="stylesheet" href="/decorater/header.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <header class="title">
+            <a href="/">象棋</a>
+        </header>
+        <nav class="link">
+            <ul>
+                <li><a href="/signin/signin.html">註冊</a></li>
+                <li><a href="/gameboard/gameboard.html">開始遊戲</a></li>
+                <li><a href="/userprofile/userprofile.html">個人數據</a></li>
+                <li><a href="/leaderboard/leaderboard.html">查看排名</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="fancy-border">
+        <img id="gravatar" alt="Gravatar Image">
+
+    
+        <!-- <h1>個人數據</h1> -->
+        <p class="player-name">玩家名稱: <span id="player-name"></span></p>
+        <p>ELO rating: <span id="player-elo"></span></p>
+        <p>總場次: <span id="total-games"></span></p>
+        <p>勝場: <span id="wins"></span></p>
+        <p>敗場: <span id="losses"></span></p>
+        <p>首次註冊日期: <span id="registration-date"></span></p>
+    </div>
+    <script src="userprofile.js"></script>
+    <script>
+        // 使用 MD5 库生成哈希值
+        function generateMD5Hash(email) {
+            return md5(email.trim().toLowerCase());
+        }
+
+        // 构建 Gravatar URL
+        function getGravatarUrl(email) {
+            const hash = generateMD5Hash(email);
+            return `https://www.gravatar.com/avatar/${hash}?s=200&d=identicon`;
+        }
+
+        // 示例邮箱地址
+        const email = "bertylliu@gmail.com";
+        const gravatarUrl = getGravatarUrl(email);
+
+        // 设置 img 元素的 src 属性
+        document.getElementById("gravatar").src = gravatarUrl;
+    </script>
+</body>
+</html>

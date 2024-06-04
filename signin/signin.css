@@ -1,0 +1,31 @@
+body {
+    background-color:pink;
+}
+form {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+input{
+    background-color: transparent;
+    color: black;
+    border: 1px solid #949d9a;
+    padding: 10px;
+    border-radius:5px;
+}
+#abc {
+    width:100px;
+    cursor:pointer ;
+}
+h1 {
+    color: crimson;
+    font-size: medium;
+}
+#level{
+    width:100px;
+    cursor:pointer ;
+}
+.signin {
+    margin-top: 50px;
+}
