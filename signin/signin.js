@@ -55,7 +55,7 @@ function submitForm(event) {
         email: document.getElementById("email").value,
         level: 0
     };
-    const ip = '10.10.12.74:8080'
+    const ip = '192.168.1.203:8080'
     const base64 = 'Basic ' + btoa(data["username"]+':'+data["password"]);
     postData('http://' + ip + '/register', data)
         .then(responseData => {

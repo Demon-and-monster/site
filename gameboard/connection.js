@@ -158,7 +158,7 @@ request.onerror = function () {
     console.error('Error: Network Error');
 }
 
-const ip = "10.10.12.74:8080"
+const ip = "192.168.1.203:8080"
 let username = localStorage.getItem('userName');
 if (username == null) username = 'admin';
 request.open('POST', 'http://' + ip + '/lineup'); 
