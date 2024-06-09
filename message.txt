@@ -1,0 +1,171 @@
+# test connection (auth needed)
+# Authorization: Basic <base64 acc and pwd>
+# base64 acc and pwd: base64(<account>:<password>)
+# acc should be turned to lowercase
+# THIS REQUEST IS ONLY MADE FOR TESTING
+GET http://localhost:8080/test
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+<> 2024-05-21T204715.200.txt
+
+###
+# sign up
+# username should be turned to lowercase
+# level accept: 0 ~ 3 (the bigger the stronger)
+# return -1 if the username is used by someone or the username contains ',' which is not accepted or username or passowrd is blank
+# return 0 if it did successfully
+
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "username": "raymondweng",
+  "password": "password",
+  "email": "yuhongweng0501@gmail.com",
+  "level": 0
+}
+
+<> 2024-05-21T204719.200.txt
+
+###
+# line up => start to wait for opponent (auth needed)
+# return 0 for ok
+# return -1 for already in list
+
+POST http://localhost:8080/lineup
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# line up => start to wait for opponent (auth needed)
+# return 0 for ok
+# return -1 for not in list
+
+POST http://localhost:8080/leftLine
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# check the stat of lining up (auth needed)
+# -1 for not in list
+# 0 for not yet
+# if not -1 or 0, then it will be <opponent username>,<color>
+# opponent will be a string
+# color: 0 stands for black and 1 stands for red
+GET http://localhost:8080/lineup
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# make a move (auth needed)
+# return -1 for not in a game, 0 for ok, 1 for illegal or not your turn, 2 for checked, 3 for checkmate (sender won)
+POST http://localhost:8080/action?
+    action=b2e2
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# surrender (auth needed)
+# return -1 for not in a game, 0 for ok, 1 for not your turn
+POST http://localhost:8080/surrender
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# get game board (auth needed)
+# game number -1 for the game the user is playing (and return -1 if the user is not in a game)
+# return steps(4 letter a step, like 'b2e2') from beginning (use last 4 letter if you need the last move)
+GET http://localhost:8080/getGameBoard
+    ?gameNumber=-1
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# get the game stats (auth needed)
+# game number -1 for the game the user is playing (and return -1 if the user is not in a game)
+# return "<stat>,<playing player>,<timeLeft>,<gameNumber>"
+# stat: 1 for playing, 0 for ended
+# playing player: 1 for black playing and 0 for red playing
+# time left will be returned in second
+# game number will be a integer
+
+GET http://localhost:8080/getGameStats?
+    gameNumber=-1
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# get the game player (auth needed)
+# game number -1 for the game the user is playing (and return -1 if the user is not in a game)
+# return <black player's username>,<red player's username>
+
+GET http://localhost:8080/getGamePlayer?
+    gameNumber=-1
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# update email address
+POST http://localhost:8080/editEmail?
+    email=newemail@example.com
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# get leader board (ten usernames separated with ',')
+# leave blank if user not enough
+# only rating more than 2000 can be shown on the leader board
+GET http://localhost:8080/leaderBoard
+
+<> 2024-05-19T161840.200.txt
+
+###
+
+# get name, rating, email coded with sha256, win count, lose count, game count, and register date (separated with ',')
+# return -1 if the user isn't exist
+GET http://localhost:8080/userDetail
+    ?username=admin
+
+###
+# get the last ten game (game number) the user played
+# separated with ','
+# leave -1 for not enough game (like a player play 5 game will get: 1,2,3,4,5,-1,-1,-1,-1,-1)
+GET http://localhost:8080/lastTenGames
+    ?username=admin
+
+###
+# get the user's friends (auth needed)
+# return -1 if user have no friend
+# or return usernames separate with ','
+GET http://localhost:8080/friends
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# send friend request to a user (auth needed)
+# return -1 if cannot find the user or the username is the sender's
+# return 0 if it sent successfully
+POST http://localhost:8080/addFriend?
+    username=admin
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# get friends requests (auth needed)
+# return -1 if there isn't any request
+GET http://localhost:8080/getFriendRequests
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# confirm a friend request (auth needed)
+# return -1 if there isn't a request like that
+# return 0 if it did successfully
+GET http://localhost:8080/confirmFriendRequest?
+    username=admin
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# play with a friend (auth needed)
+# return -1 if the user is not sender's friend
+# return 0 if sent
+# return 1 if join the game (if that friend sent invite)
+POST http://localhost:8080/playWithFriend?
+    username=admin
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+
+###
+# get users looking for sender (auth needed)
+# separated with ','
+# return -1 if wait list in empty
+# use "GET /playWithFriend?username=<username>" to accept
+GET http://localhost:8080/playWithFriendWaitList
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=

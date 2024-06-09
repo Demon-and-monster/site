@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>象棋遊戲</title>
-    <link rel="stylesheet" href="./gameboard.css">
+    <link rel="stylesheet" href="gameboard.css">
 </head>
 <body>
     <div class="edge">
         <div id="board">
         </div>
-        <div class="game-status">
-            <span id="connection-status">等待對手中</span>
-            <button id="action-button" onclick="leftConnection();">中斷連線</button>
+        <div class="game-status-board">
+            <div class="game-status">
+                <span id="connection-status">等待對手中</span>
+            </div>
+            <div class="game-buttons">
+                <button id="action-button" onclick="leftConnection();">中斷連線</button>
+            </div>
         </div>
     </div>
     
     <!-- <button onclick="checkConnection();">連線狀態</button> -->
-    <button onclick="getGameStatus();">遊戲狀態</button>
+
     <script src="./gameboard.js"></script>
     <script src="./connection.js"></script>
 </body>

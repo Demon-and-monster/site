@@ -4,22 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>象棋遊戲</title>
-    <link rel="stylesheet" href="/decorater/header.css">
-
+    <link rel="stylesheet" href="./leaderboard.css">
+    <link rel="stylesheet" href="/site/decorater/header.css">
 </head>
 <body>
     <div class="header">
         <header class="title">
-            <a href="/">象棋</a>
+            <a href="/site/index.html">象棋</a>
         </header>
         <nav class="link">
             <ul>
-                <li><a href="/signin/signin.html">註冊</a></li>
-                <li><a href="/gameboard/startgame.html">開始遊戲</a></li>
-                <li><a href="/userprofile/userprofile.html">個人數據</a></li>
-                <li><a href="/leaderboard/leaderboard.html">查看排名</a></li>
+                <li><a href="/site/signin/signin.html">註冊</a></li>
+                <li><a href="/site/gameboard/gameboard.html">開始遊戲</a></li>
+                <li><a href="/site/userprofile/userprofile.html">個人數據</a></li>
+                <li><a href="/site/leaderboard/leaderboard.html">查看排名</a></li>
             </ul>
         </nav>
     </div>
+    <div class="leaderboard">
+        <h1>Leaderboard</h1>
+        <table>
+            <tr>
+                <th></th>
+                <th>Player</th>
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td><img src="https://www.gravatar.com/avatar/9c8fbb7e2c4d2099032d85d13ba47967?s=200&d=identicon" alt="Player 1"></td>
+                <td>YummyBerry</td>
+                <td class="mvp">🏆2200</td>
+            </tr>
+            <tr>
+                <td><img src="https://via.placeholder.com/40" alt="Player 2"></td>
+                <td>Player 2</td>
+                <td>#後端資料</td>
+            </tr>
+            <tr>
+                <td><img src="https://via.placeholder.com/40" alt="Player 3"></td>
+                <td>Player 3</td>
+                <td>#後端資料</td>
+            </tr>
+            <tr>
+                <td><img src="https://via.placeholder.com/40" alt="Player 4"></td>
+                <td>Player 4</td>
+                <td>#後端資料</td>
+            </tr>
+        </table>
+    </div>
+    <script src="./leaderboard.js"></script>
 </body>
 </html>

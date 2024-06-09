@@ -1,0 +1,60 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa;
+}
+
+div {
+    background-color: black;
+}
+
+/* leaderboard styles */
+.leaderboard {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%; /* 調整寬度 */
+    margin: 20px; /* 左側對齊 */
+    text-align: left; /* 置於左側 */
+}
+
+.leaderboard h1 {
+    background-color: #1976d2;
+    color: white;
+    margin: 0;
+    padding: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center; /* 標題置中 */
+}
+
+.leaderboard table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard td, .leaderboard th {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.leaderboard th {
+    background-color: #2196f3;
+    color: white;
+    text-align: left; /* 表頭置於左側 */
+}
+
+.leaderboard tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.leaderboard img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.leaderboard .mvp {
+    color: gold;
+}

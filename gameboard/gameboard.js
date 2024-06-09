@@ -39,7 +39,11 @@ function moveImage(move) {
         // 將圖片節點從 start 移動到 end
         end.appendChild(image);
         if(eatImg){
+            eatSound.play();
             eatImg.remove();
+        }
+        else{
+            moveSound.play();
         }
         // 移除 'hidden' 類，使圖片在 end 中顯示出來
         // image.classList.remove('hidden');
@@ -67,7 +71,7 @@ async function getGameBoard(){
         request.onerror = function () {
             console.log('error');
         }
-        request.open('GET', "http://localhost:8080/getGameBoard?gameNumber=-1", true); 
+        request.open('GET', "http://" + ip + "/getGameBoard?gameNumber=-1", true); 
         request.setRequestHeader("Authorization", localStorage.getItem('Authorization'))
         request.send();
     });
@@ -87,7 +91,7 @@ async function makeMove(move){
         request.onerror = function () {
             console.log('error');
         }
-        request.open('POST', "http://localhost:8080/action?action=" + move, true); 
+        request.open('POST', "http://" + ip + "/action?action=" + move, true); 
         request.setRequestHeader("Authorization", localStorage.getItem('Authorization'))
         request.send();
     });
@@ -97,7 +101,7 @@ async function makeMove(move){
 
 let onclickDiv = null;
 let lastMove = null;
-
+const ip = '10.10.12.74:8080'
 const alphaArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
 const numArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const imgDict = {
@@ -121,7 +125,7 @@ for(let i = 0; i <= 9; i++){
         const node = board.appendChild(div);
         if(imgDict[div.id]){
             const img = document.createElement("img");
-            img.src = '/images/chessImgs/' + imgDict[div.id] + '.png';
+            img.src = '/site/images/chessImgs/' + imgDict[div.id] + '.png';
             document.getElementById(div.id).appendChild(img)
         }
         
@@ -160,5 +164,8 @@ document.querySelectorAll('.container').forEach(div => {
     });
 });
 
+// sound data
+var moveSound = new Audio('/site/sounds/move-self.mp3');
+var eatSound = new Audio('/site/sounds/capture.mp3');
 
 setInterval(getGameBoard, 500);

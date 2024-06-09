@@ -21,9 +21,14 @@ async function checkConnection() {
                     button.textContent = '投降';
                     button.onclick = surrender;
 
-                    clearInterval(checkConnectionId);
+                    let response = request.response.split(',');
+                    opponentName = response[0];
+                    if(response[1] == '0') isBlack = true;
+                    else isBlack = false;
                     gameStart = 1;
                     connectionResult = 1;
+
+                    clearInterval(checkConnectionId);
                 }
                 
                 // resolve(request.response);
@@ -34,7 +39,7 @@ async function checkConnection() {
         request.onerror = function () {
             console.log('error');
         }
-        request.open('GET', "http://localhost:8080/lineup"); 
+        request.open('GET', "http://" + ip + "/lineup"); 
         request.setRequestHeader("Authorization", base64)
         request.send();
     });
@@ -47,7 +52,36 @@ async function getGameStatus() {
         request.onload = function () {
             if (request.status >= 200 && request.status < 400) {
                 console.log(request.response);
-                resolve(request.response);
+                let response = request.response.split(',');
+                let topStatus = document.getElementsByClassName('game-status')[0];
+                topStatus.replaceChildren();
+                if(request.response == -1){
+                    let win = document.createElement("span");
+                    win.innerHTML = "對方已投降 恭喜獲勝";
+                    topStatus.appendChild(win);
+                    clearInterval(getGameStatusId);
+                    return;
+                }
+                
+                
+                let red = document.createElement("span");
+                let black = document.createElement("span");
+                let turn = document.createElement("span");
+                
+                if(isBlack){
+                    red.innerHTML = "紅方: " + opponentName;
+                    black.innerHTML = "黑方: " + localStorage.getItem('userName') + " (您)";
+                }
+                else{
+                    red.innerHTML = "紅方: " + localStorage.getItem('userName') + " (您)";
+                    black.innerHTML = "黑方: " + opponentName;
+                }
+                if(response[1] == "false") turn.innerHTML = "輪到紅方"
+                else turn.innerHTML = "輪到黑方"
+
+                topStatus.appendChild(red);
+                topStatus.appendChild(black);
+                topStatus.appendChild(turn);
             } else {
                 console.log('err');
             }
@@ -55,7 +89,7 @@ async function getGameStatus() {
         request.onerror = function () {
             console.log('error');
         }
-        request.open('GET', "http://localhost:8080/getGameStats?gameNumber=-1"); 
+        request.open('GET', "http://" + ip + "/getGameStats?gameNumber=-1"); 
         request.setRequestHeader("Authorization", base64)
         request.send();
     });
@@ -66,7 +100,7 @@ function leftConnection() {
     request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
             console.log(request.response)
-            if(request.response == 0) window.location.href = '/';
+            if(request.response == 0) window.location.href = '/site/index.html';
             // console.log('Waiting for opponent')
         }
         else {
@@ -79,7 +113,7 @@ function leftConnection() {
 
     let username = localStorage.getItem('userName');
     if (username == null) username = 'admin';
-    request.open('POST', 'http://localhost:8080/leftLine'); 
+    request.open('POST', 'http://' + ip + '/leftLine'); 
     request.setRequestHeader('Authorization', base64);
     request.send();
 }
@@ -89,7 +123,7 @@ function surrender() {
     request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
             console.log(request.response)
-            if(request.response == 0) window.location.href = '/';
+            if(request.response == 0) window.location.href = '/site/index.html';
             // console.log('Waiting for opponent')
         }
         else {
@@ -102,7 +136,7 @@ function surrender() {
 
     let username = localStorage.getItem('userName');
     if (username == null) username = 'admin';
-    request.open('POST', 'http://localhost:8080/surrender'); 
+    request.open('POST', 'http://' + ip + '/surrender'); 
     request.setRequestHeader('Authorization', base64);
     request.send();
 }
@@ -116,7 +150,7 @@ request.onload = function () {
     if (request.status >= 200 && request.status < 400) {
     }
     else {
-        window.location.href = '/signin/signin.html';
+        window.location.href = '/site/signin/signin.html';
         console.error('Error: Unable to fetch data');
     }
 }
@@ -124,9 +158,10 @@ request.onerror = function () {
     console.error('Error: Network Error');
 }
 
+const ip = "10.10.12.74:8080"
 let username = localStorage.getItem('userName');
 if (username == null) username = 'admin';
-request.open('POST', 'http://localhost:8080/lineup'); 
+request.open('POST', 'http://' + ip + '/lineup'); 
 request.setRequestHeader("Authorization", base64);
 request.send();
 
@@ -136,6 +171,13 @@ let connectionResult = null;
 const checkConnectionId = setInterval(checkConnection, 500);
 const getGameStatusId = setInterval(getGameStatus, 500);
 
+// game data
+let isBlack = null; 
+let opponentName = null;
+
+
+
 window.addEventListener('beforeunload', function (event) {
     leftConnection();
+    surrender();
 });

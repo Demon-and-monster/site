@@ -55,14 +55,15 @@ function submitForm(event) {
         email: document.getElementById("email").value,
         level: 0
     };
+    const ip = '10.10.12.74:8080'
     const base64 = 'Basic ' + btoa(data["username"]+':'+data["password"]);
-    postData('http://localhost:8080/register', data)
+    postData('http://' + ip + '/register', data)
         .then(responseData => {
             console.log(btoa("admin:password"))
             if (responseData == 0){
                 localStorage.setItem('userName', document.getElementById("username").value);
                 localStorage.setItem('Authorization', base64)
-                window.location.href = '/';
+                window.location.href = '/site/index.html';
             }
             console.log(responseData);
             console.log(registType(responseData));

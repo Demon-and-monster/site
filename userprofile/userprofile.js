@@ -23,7 +23,7 @@ request.onload = function () {
         document.getElementById('registration-date').textContent = response[6];
     }
     else {
-        window.location.href = '/signin/signin.html';
+        window.location.href = '/site/signin/signin.html';
         console.error('Error: Unable to fetch data');
     }
 }
@@ -31,8 +31,9 @@ request.onerror = function () {
     console.error('Error: Network Error');
 }
 
+const ip = '10.10.12.74:8080'
 let username = localStorage.getItem('userName');
 if (username == null) username = 'admin';
-request.open('GET', 'http://localhost:8080/userDetail?username=' + username, true); 
+request.open('GET', 'http://' + ip + '/userDetail?username=' + username, true); 
 request.setRequestHeader("Authorization", localStorage.getItem('Authorization'));
 request.send();

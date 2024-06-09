@@ -32,6 +32,7 @@ button:active {
     flex-direction: row;
     width: 100%;
 }
+
 #board {
     position: relative;
     margin: 20px;
@@ -40,10 +41,11 @@ button:active {
     border-radius: 5px;
     background-color: rgb(249, 182, 93);
 }
-.game-status{
+
+.game-status-board{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     align-items: center;
 
     margin: 20px;
@@ -53,13 +55,27 @@ button:active {
     background-color: rgb(249, 182, 93);
     /* width: 100%; */
 }
+
+.game-status{
+    flex: 7;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 .game-status span{
+    
     text-align: center;
     font-size: 30px;
     /* margin-top: 75%;
     width: 100%; */
 }
+.game-buttons{
+    flex: 3;
 
+    display: flex;
+    align-items: center;
+}
 .container {
     
     width: 50px;
@@ -75,7 +91,7 @@ button:active {
     width: 100%;
     height: auto;
     position: absolute;
-    transition: transform 1s ease-in-out;
+    transition: transform 0.25s ease-in-out;
 }
 
 
